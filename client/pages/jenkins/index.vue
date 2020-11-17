@@ -133,6 +133,9 @@
 <script>
 export default {
   components: {
+    // DOCS: https://github.com/iendeavor/object-visualizer
+    // DOCS: https://github.com/tylerkrupicka/vue-json-component
+    // DOCS: https://github.com/chenfengjw163/vue-json-viewer
     // 避免服务端
     'json-view': async () => (await import('vue-json-component')).JSONView
   },
