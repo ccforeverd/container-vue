@@ -48,7 +48,9 @@ module.exports = {
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
+  axios: {
+    baseURL: '/api'
+  },
 
   // Content module configuration (https://go.nuxtjs.dev/config-content)
   content: {},

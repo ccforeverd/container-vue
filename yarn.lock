@@ -1126,7 +1126,7 @@
     upath "^2.0.0"
     wrap-ansi "^6.2.0"
 
-"@nuxt/components@^1.1.0", "@nuxt/components@^1.1.1":
+"@nuxt/components@^1.1.0":
   version "1.1.1"
   resolved "https://registry.npm.taobao.org/@nuxt/components/download/@nuxt/components-1.1.1.tgz?cache=0&sync_timestamp=1603368736619&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40nuxt%2Fcomponents%2Fdownload%2F%40nuxt%2Fcomponents-1.1.1.tgz#f59832053f11801cc3d220de951f8167e3d31acc"
   integrity sha1-9ZgyBT8RgBzD0iDelR+BZ+PTGsw=
@@ -13238,6 +13238,11 @@ vue-hot-reload-api@^2.3.0:
   version "2.3.4"
   resolved "https://registry.npm.taobao.org/vue-hot-reload-api/download/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"
   integrity sha1-UylVzB6yCKPZkLOp+acFdGV+CPI=
+
+vue-json-component@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.npm.taobao.org/vue-json-component/download/vue-json-component-0.4.1.tgz#a21d4ddaeec6358c614a96d8f3fac6716666d92b"
+  integrity sha1-oh1N2u7GNYxhSpbY8/rGcWZm2Ss=
 
 vue-loader@^15.9.3:
   version "15.9.5"
