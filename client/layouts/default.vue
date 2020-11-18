@@ -110,6 +110,11 @@ export default {
           icon: 'mdi-alpha-j-box-outline',
           title: 'Jenkins',
           to: '/jenkins'
+        },
+        {
+          icon: 'mdi-microsoft-internet-explorer',
+          title: 'Requests',
+          to: '/requests'
         }
       ],
       miniVariant: false,

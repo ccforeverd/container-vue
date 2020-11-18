@@ -9,12 +9,20 @@ const getExternals = (names: string[]) => names.reduce((result, item) => {
 }, {})
 
 const config: webpack.Configuration = {
-  entry: path.resolve(__dirname, './index.js'),
+  entry: path.resolve(__dirname, './index.ts'),
   output: {
     path: path.resolve(__dirname, '../.server'),
     filename: 'index.js'
   },
-  externals: getExternals(Object.keys(pkg.dependencies || [])),
+  externals: {
+    ...getExternals(Object.keys(pkg.dependencies || [])),
+    ...getExternals([
+      '@nuxt/core',
+      '@nuxt/builder',
+      'axios',
+      'vm'
+    ])
+  },
   module: {
     rules: [
       {

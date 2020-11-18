@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES5",
+    "target": "ES2018",
     "module": "CommonJS",
     "moduleResolution": "Node",
     "lib": [
@@ -13,6 +13,8 @@
     "allowJs": true,
     "sourceMap": true,
     "strict": true,
+    "noEmit": false,
+    "jsx": "preserve",
     "noImplicitAny": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -30,7 +32,8 @@
       "@types/node",
       "@nuxt/types",
       "@nuxt/content",
-      "@nuxtjs/axios"
+      "@nuxtjs/axios",
+      "vuetify"
     ]
   },
   "exclude": [

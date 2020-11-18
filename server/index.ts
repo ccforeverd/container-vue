@@ -1,5 +1,7 @@
 import 'reflect-metadata'
-import { Nuxt, Builder } from 'nuxt'
+// import { Nuxt, Builder } from 'nuxt'
+import { Nuxt } from '@nuxt/core'
+import { Builder } from '@nuxt/builder'
 import { createKoaServer, useContainer } from 'routing-controllers'
 import { Container } from 'typedi'
 
@@ -8,6 +10,7 @@ import { log } from './utils/log'
 import { getAvailablePort } from './utils/getAvaliablePort'
 
 import { JenkinsJobsController, JenkinsBuildController } from './jenkins'
+import { RequestsGetController } from './requests'
 
 useContainer(Container)
 
@@ -19,7 +22,8 @@ const start = async () => {
     routePrefix: '/api',
     controllers: [
       JenkinsJobsController,
-      JenkinsBuildController
+      JenkinsBuildController,
+      RequestsGetController
     ]
   })
 

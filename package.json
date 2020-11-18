@@ -10,15 +10,16 @@
     "build:server": "webpack --config server/webpack.config.server.ts",
     "start": "nuxt-ts start client",
     "generate": "nuxt-ts generate",
-    "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "lint:style": "stylelint **/*.{vue,css} --ignore-path .gitignore",
+    "lint:js": "eslint --ext .js,.ts,tsx,.vue --ignore-path .gitignore .",
+    "lint:style": "stylelint **/*.{vue,css,scss} --ignore-path .gitignore",
     "lint": "yarn lint:js && yarn lint:style",
+    "lint:fix": "eslint --ext .js,.ts,tsx,.vue --ignore-path .gitignore . --fix",
     "test:e2e": "wdio wdio.conf.js",
     "test:jenkins": "node server/jenkins/test.js"
   },
   "lint-staged": {
-    "*.{js,vue}": "eslint",
-    "*.{css,vue}": "stylelint"
+    "*.{js,vue,ts,tsx}": "eslint",
+    "*.{scss,css,vue}": "stylelint"
   },
   "husky": {
     "hooks": {
@@ -30,6 +31,7 @@
     "@nuxt/content": "^1.10.0",
     "@nuxt/typescript-runtime": "^2.0.0",
     "@nuxtjs/axios": "^5.12.2",
+    "cheerio": "^1.0.0-rc.3",
     "class-transformer": "^0.3.1",
     "class-validator": "^0.12.2",
     "core-js": "^3.7.0",
@@ -40,7 +42,9 @@
     "koa-router": "^10.0.0",
     "lodash.debounce": "^4.0.8",
     "net": "^1.0.2",
+    "node-fetch": "^2.6.1",
     "nuxt": "^2.14.7",
+    "nuxt-property-decorator": "^2.8.8",
     "reflect-metadata": "^0.1.13",
     "routing-controllers": "^0.9.0-alpha.6",
     "tcp-port-used": "^1.0.1",

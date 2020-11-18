@@ -27,7 +27,13 @@ module.exports = {
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
-  components: true,
+  components: [
+    '~/components',
+    {
+      path: '~/pages',
+      extensions: ['vue', 'js', 'ts', 'tsx']
+    }
+  ],
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
@@ -76,5 +82,6 @@ module.exports = {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
+    additionalExtensions: ['ts', 'tsx']
   }
 }
