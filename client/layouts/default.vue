@@ -115,6 +115,11 @@ export default {
           icon: 'mdi-microsoft-internet-explorer',
           title: 'Requests',
           to: '/requests'
+        },
+        {
+          icon: 'mdi-gitlab',
+          title: 'Gitlab',
+          to: '/gitlab'
         }
       ],
       miniVariant: false,

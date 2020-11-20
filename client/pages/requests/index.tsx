@@ -13,7 +13,7 @@ interface PageInfo {
 }
 
 @Component
-export default class PageIndex extends Vue {
+export default class PageRequest extends Vue {
   private readonly sites = [
     'edu.wps.cn',
     'edu-m.wps.cn',
@@ -147,16 +147,24 @@ export default class PageIndex extends Vue {
                 items={this.sites}
               />
               <v-btn
+                class="my-2"
                 color="success"
                 onClick={this.getPageInfo}
+                block
               >
-                  Get Page Info
+                Get Page Info
+              </v-btn>
+              <v-btn
+                class="my-2"
+                block
+              >
+                Load This Page
               </v-btn>
               <v-alert
+                class="my-2"
                 value={!!this.formError}
                 type="error"
                 transition="scale-transition"
-                style="margin-top: 14px;"
               >
                 { this.formError }
               </v-alert>

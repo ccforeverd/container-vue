@@ -138,16 +138,18 @@ export default class PageJenkins extends Vue {
                 label="Your Jenkins Token"
               />
               <v-btn
+                class="my-2"
                 color="success"
                 onClick={this.getAllJobs}
+                block
               >
                  Get All Jobs
               </v-btn>
               <v-alert
+                class="my-2"
                 value={!!this.formError}
                 type="error"
                 transition="scale-transition"
-                style="margin-top: 14px;"
               >
                 { this.formError }
               </v-alert>
