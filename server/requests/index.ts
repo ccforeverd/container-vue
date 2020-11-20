@@ -1,3 +1,2 @@
-//
 
 export { RequestsGetController } from './get'

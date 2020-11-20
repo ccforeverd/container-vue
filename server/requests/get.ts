@@ -1,22 +1,22 @@
 import vm from 'vm'
-// import URL from 'url'
 import { JSDOM } from 'jsdom'
 import { Service } from 'typedi'
 import Axios from 'axios'
 import Cheerio from 'cheerio'
 import { JsonController, Get, QueryParam } from 'routing-controllers'
 
-async function getGlobalVars (url: string) {
-  const { data: jsText } = await Axios.get(url)
+async function getGlobalVars (url: URL) {
+  const { data: jsText } = await Axios.get(url.toString())
   const script = new vm.Script(jsText)
   const { window: context } = new JSDOM('', {
     url,
-    referrer: url,
+    referrer: `${url.protocol}//${url.host}`,
     contentType: 'text/html',
     includeNodeLocations: true,
     storageQuota: 10000000
   })
   const originKeys = Object.keys(context)
+  context.console.log = () => 1
   try {
     script.runInNewContext(context)
     await new Promise(resolve => setTimeout(resolve, 300))
@@ -42,18 +42,18 @@ export class RequestsGetController {
   async getPageInfo (@QueryParam('url') queryUrl: string) {
     // 自动补全链接
     // 获取js文件中的全局变量
-    const url = new URL(queryUrl)
+    const url = new URL(decodeURIComponent(queryUrl))
     const { data: htmlText } = await Axios.get(url.toString())
     const $ = Cheerio.load(htmlText)
     const mapUrl = (attr, options = { vars: false }) => (_, el) => {
-      const formattedUrl = new URL($(el).attr(attr), url).toString()
+      const formattedUrl = new URL($(el).attr(attr), url)
       if (options.vars) {
         return getGlobalVars(formattedUrl).then(vars => ({
-          url: formattedUrl,
+          url: formattedUrl.toString(),
           vars
         }))
       }
-      return formattedUrl
+      return formattedUrl.toString()
     }
     return {
       scripts: await Promise.all($('script[src]').map(mapUrl('src', { vars: true })).get()),
