@@ -37,7 +37,10 @@ const config: webpack.Configuration = {
     ]
   },
   resolve: {
-    extensions: ['.json', '.tsx', '.ts', '.js', '.d.ts']
+    extensions: ['.json', '.tsx', '.ts', '.js', '.d.ts'],
+    alias: {
+      '~': path.resolve(__dirname, '../')
+    }
   }
 }
 

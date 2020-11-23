@@ -1,7 +1,7 @@
-/* eslint-disable nuxt/no-cjs-in-config */
-const colors = require('vuetify/es5/util/colors').default
+import { NuxtConfig } from '@nuxt/types'
+import colors from 'vuetify/es5/util/colors'
 
-module.exports = {
+const config: NuxtConfig = {
   telemetry: false,
   srcDir: 'client/',
   // Global page headers (https://go.nuxtjs.dev/config-head)
@@ -85,3 +85,5 @@ module.exports = {
     additionalExtensions: ['ts', 'tsx']
   }
 }
+
+export default config
