@@ -4,6 +4,7 @@ import { Service } from 'typedi'
 import Axios from 'axios'
 import Cheerio from 'cheerio'
 import { JsonController, Get, QueryParam } from 'routing-controllers'
+import { log } from '../utils/log'
 
 async function getGlobalVars (url: URL) {
   const { data: jsText } = await Axios.get(url.toString())
@@ -21,7 +22,8 @@ async function getGlobalVars (url: URL) {
     script.runInNewContext(context)
     await new Promise(resolve => setTimeout(resolve, 300))
   } catch (e) {
-    return ['vm error', e]
+    log('getGlobalVars', `WE GOT ERROR IN ${url.toString()}`)
+    return []
   }
   const newKeys = Object.keys(context)
   const newContext = newKeys
