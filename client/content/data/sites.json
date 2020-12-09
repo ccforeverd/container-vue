@@ -1,0 +1,17 @@
+[
+  {
+    "title": "edu-m.wps.cn",
+    "subtitle": "精品课H5",
+    "scripts": [
+      {
+        "src": "",
+        "vars": [
+          ["name", "version"]
+        ]
+      }
+    ],
+    "vars": [
+      ["name", "version"]
+    ]
+  }
+]
