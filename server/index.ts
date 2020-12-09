@@ -5,8 +5,7 @@ import { Container } from 'typedi'
 import { log } from './utils/log'
 import { getAvailablePort } from './utils/getAvaliablePort'
 
-import { JenkinsJobsController, JenkinsBuildController } from './jenkins'
-import { RequestsGetController } from './requests'
+import * as controllers from './controllers'
 
 import { createNuxtApp } from '~/client/createNuxtApp'
 
@@ -16,11 +15,7 @@ const start = async () => {
   const port = await getAvailablePort(4000)
   const app = createKoaServer({
     routePrefix: '/api',
-    controllers: [
-      JenkinsJobsController,
-      JenkinsBuildController,
-      RequestsGetController
-    ]
+    controllers: Object.values(controllers)
   })
   const nuxtApp = await createNuxtApp({
     skipBuild: process.env.DEV_MODE === 'server',

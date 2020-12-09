@@ -4,7 +4,7 @@ import { Service } from 'typedi'
 import Axios from 'axios'
 import Cheerio from 'cheerio'
 import { JsonController, Get, QueryParam } from 'routing-controllers'
-import { log } from '../utils/log'
+import { log } from '../../utils/log'
 
 async function getGlobalVars (url: URL) {
   const { data: jsText } = await Axios.get(url.toString())

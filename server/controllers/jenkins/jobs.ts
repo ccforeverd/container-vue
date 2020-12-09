@@ -1,6 +1,7 @@
 
 import { Service } from 'typedi'
-import { JsonController, Get, QueryParams } from 'routing-controllers'
+import { JsonController, Get, QueryParams, UseBefore } from 'routing-controllers'
+import { useDecrypt } from '../../middlewares/crypto'
 import {
   CreateJenkinsApp,
   JenkinsOptions,
@@ -9,6 +10,9 @@ import {
 
 @Service()
 @JsonController('/jenkins/jobs')
+@UseBefore(useDecrypt({
+  type: 'json'
+}))
 export class JenkinsJobsController extends CreateJenkinsApp {
   @Get('/all')
   getAllJobs (@QueryParams() query: JenkinsOptions) {
