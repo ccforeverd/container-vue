@@ -9,9 +9,13 @@
 // 参考: https://github.com/brix/crypto-js
 
 import { KoaMiddlewareInterface } from 'routing-controllers'
+import { generateSecretKey } from '@/common/generateSecretKey'
+
+const secretKey = generateSecretKey()
 
 export function useEncrypt (options = {}) {
   console.log(options)
+  console.log(secretKey)
   return class Encrypt implements KoaMiddlewareInterface {
     use (context: any, next: (err?: any) => Promise<any>): Promise<any> {
       console.log('before', Object.keys(context))

@@ -1,6 +1,6 @@
 
-// const cryptoConfig = require('../config/crypto.json')
+const cryptoConfig = require('../config/crypto')
 
-// interface generateSecretKey {}
-
-// export function generateSecretKey () {}
+export function generateSecretKey (): string {
+  return [...cryptoConfig.s].map(index => cryptoConfig.k[index]).join('=_=')
+}
