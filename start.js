@@ -41,7 +41,11 @@ function watchServer () {
         nodemon.restart()
       }
     }, 300)
-    const watcher = require('chokidar').watch(path.resolve(__dirname, 'server'))
+    const watcher = require('chokidar').watch([
+      path.resolve(__dirname, 'common'),
+      path.resolve(__dirname, 'config'),
+      path.resolve(__dirname, 'server')
+    ])
     watcher
       .on('add', onChange)
       .on('change', onChange)
