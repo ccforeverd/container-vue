@@ -66,11 +66,12 @@ export default class PageJenkins extends Vue {
     }
 
     try {
-      this.jobList = (await this.$axios.$get('/jenkins/jobs/all', { params: this.formData }))
-        .map((item, index) => {
-          item.index = index + 1
-          return item
-        })
+      this.jobList = (await this.$axios.$get('/jenkins/jobs/all', {
+        params: { __data__: this.$encryptJson(this.formData) }
+      })).map((item, index) => {
+        item.index = index + 1
+        return item
+      })
     } catch (e) {
       if (e.response.status === 500) {
         this.formError = e.response.data || 'service error'

@@ -1,4 +1,5 @@
 import Vue, { VNode } from 'vue'
+import { encryptFunc, enctyptJsonFunc } from '../client/plugins/encrypt'
 
 declare module '*.json'
 
@@ -19,4 +20,11 @@ declare global {
 
 declare module '*.vue' {
   export default Vue
+}
+
+declare module 'vue/types/vue' {
+  interface Vue {
+    $encrypt: encryptFunc
+    $encryptJson: enctyptJsonFunc
+  }
 }

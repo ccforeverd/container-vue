@@ -11,13 +11,12 @@ import {
 @Service()
 @JsonController('/jenkins/jobs')
 @UseBefore(useDecrypt({
-  type: 'json'
+  order: ['query']
 }))
 export class JenkinsJobsController extends CreateJenkinsApp {
   @Get('/all')
   getAllJobs (@QueryParams() query: JenkinsOptions) {
-    return new Promise((resolve, reject) => {
-      const jenkinsApp = this.createJenkinsApp(query)
+    return this.withJenkinsApp(query, (jenkinsApp, resolve, reject) => {
       jenkinsApp.all_jobs((err: Error, data) => {
         if (err) {
           return reject(err)
@@ -25,6 +24,15 @@ export class JenkinsJobsController extends CreateJenkinsApp {
         resolve(data)
       })
     })
+    // return new Promise((resolve, reject) => {
+    //   const jenkinsApp = this.createJenkinsApp(query)
+    //   jenkinsApp.all_jobs((err: Error, data) => {
+    //     if (err) {
+    //       return reject(err)
+    //     }
+    //     resolve(data)
+    //   })
+    // })
   }
 
   @Get('/info')
