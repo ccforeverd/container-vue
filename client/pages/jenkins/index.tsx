@@ -1,4 +1,5 @@
 import { Vue, Component, Ref } from 'nuxt-property-decorator'
+import { AxiosError } from 'axios'
 
 @Component({
   // DOCS: https://github.com/iendeavor/object-visualizer
@@ -35,7 +36,7 @@ export default class PageJenkins extends Vue {
       valid: true,
       formData: {
         username: 'zhangshuyao',
-        token: '112dfd30533500b17490fc62b89c3ceb7b'
+        token: process.env.CI_EDU_KINGSOFT_TOKEN
       },
       jobHeaders: [
         {
@@ -67,15 +68,13 @@ export default class PageJenkins extends Vue {
 
     try {
       this.jobList = (await this.$axios.$get('/jenkins/jobs/all', {
-        params: { __data__: this.$encryptJson(this.formData) }
+        params: this.formData
       })).map((item, index) => {
         item.index = index + 1
         return item
       })
     } catch (e) {
-      if (e.response.status === 500) {
-        this.formError = e.response.data || 'service error'
-      }
+      this.makeError(e)
       this.jobList = []
     }
   }
@@ -83,15 +82,14 @@ export default class PageJenkins extends Vue {
   async viewJob (item) {
     try {
       this.jobData = await this.$axios.$get('/jenkins/jobs/info', {
-        params: Object.assign({
-          jobname: item.name
-        }, this.formData)
+        params: {
+          jobname: item.name,
+          ...this.formData
+        }
       })
       this.dialogJob = true
     } catch (e) {
-      if (e.response.status === 500) {
-        this.formError = e.response.data || 'service error'
-      }
+      this.makeError(e)
       this.jobData = {}
       this.dialogJob = false
     }
@@ -99,9 +97,10 @@ export default class PageJenkins extends Vue {
 
   async viewLast (item) {
     try {
-      const formData = Object.assign({
-        jobname: item.name
-      }, this.formData)
+      const formData = {
+        jobname: item.name,
+        ...this.formData
+      }
       this.buildData = await this.$axios.$get('/jenkins/jobs/last/info', {
         params: formData
       })
@@ -110,12 +109,20 @@ export default class PageJenkins extends Vue {
       })
       this.dialogBuild = true
     } catch (e) {
-      if (e.response.status === 500) {
-        this.formError = e.response.data || 'service error'
-      }
+      this.makeError(e)
       this.buildData = {}
       this.buildConsole = ''
       this.dialogBuild = false
+    }
+  }
+
+  makeError (error: AxiosError) {
+    if (error.response) {
+      if (error.response.status >= 500) {
+        this.formError = error.response.data || 'Server Error 500'
+      }
+    } else {
+      this.formError = error.message || 'Client Error'
     }
   }
 
@@ -204,9 +211,9 @@ export default class PageJenkins extends Vue {
             </v-tab-item>
             <v-tab-item>
               <v-card light>
-                <no-ssr>
+                <client-only>
                   <json-view data={this.jobData} />
-                </no-ssr>
+                </client-only>
               </v-card>
             </v-tab-item>
           </v-tabs>
@@ -238,9 +245,9 @@ export default class PageJenkins extends Vue {
             </v-tab-item>
             <v-tab-item>
               <v-card light>
-                <no-ssr>
+                <client-only>
                   <json-view data={this.buildData} />
-                </no-ssr>
+                </client-only>
               </v-card>
             </v-tab-item>
             <v-tab-item>

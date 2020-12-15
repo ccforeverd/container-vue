@@ -14,9 +14,13 @@ import { generateSecretKey } from '@/common/generateSecretKey'
 
 const secretKey = generateSecretKey()
 
-type decryptTypes = 'value' | 'key' | 'json' | 'params' | 'query'
+type decryptTypes = 'query' | 'query-value' | 'value' | 'json' | 'params' | 'formData'
+
 interface DecryptOptions {
   order: Array<decryptTypes>
+  router?: string | string[]
+  keys?: string[]
+  queryKeys?: string[]
 }
 
 // 解密
@@ -28,16 +32,47 @@ export function useDecrypt (options: DecryptOptions) {
 
       options.order.forEach((type) => {
         switch (type) {
+          // 处理query的__data__字段
           case 'query':
             if (query.has('__data__')) {
-              // console.log('---' + this.parse(query.get('__data__') || '') + '---')
-              // console.log(typeof this.parse(query.get('__data__') || ''))
-              const data = JSON.parse(String(this.parse(query.get('__data__') || '')))
-              // console.log(data)
+              const data = JSON.parse(this.parse(query.get('__data__') || ''))
               Object.entries(data).forEach(([key, value]) => query.set(key, String(value)))
               query.delete('__data__')
               context.request.url = [basePath, query.toString()].join('?')
             }
+            break
+
+          // 处理query里指定key的value
+          // 需要传入指定的key
+          case 'query-value':
+            if (Array.isArray(options.queryKeys) && options.queryKeys.length > 0) {
+              const keys = options.queryKeys.filter(query.has)
+              if (keys.length > 0) {
+                keys.forEach((key) => {
+                  const value = this.parse(query.get(key) || '')
+                  query.set(key, value)
+                })
+                context.request.url = [basePath, query.toString()].join('?')
+              }
+            }
+            break
+
+          // 处理url里的params
+          // 需要传入路由string
+          case 'params':
+            break
+
+          // 处理post的body指定key的value(自动区分json还是formData)
+          // 需要传入指定的key
+          case 'value':
+            break
+
+          // 处理post的body(json格式)
+          case 'json':
+            break
+
+          // 处理post的body(formData格式)
+          case 'formData':
             break
         }
       })

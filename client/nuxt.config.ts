@@ -56,9 +56,9 @@ const config: NuxtConfig = {
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {
-    baseURL: '/api'
-  },
+  // axios: {
+  //   baseURL: '/api'
+  // },
 
   // Content module configuration (https://go.nuxtjs.dev/config-content)
   content: {},
