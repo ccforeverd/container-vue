@@ -37,8 +37,7 @@ export class JenkinsJobsController extends CreateJenkinsApp {
 
   @Get('/info')
   getJobInfo (@QueryParams() query: JenkinsJobOptions) {
-    return new Promise((resolve, reject) => {
-      const jenkinsApp = this.createJenkinsApp(query)
+    return this.withJenkinsApp(query, (jenkinsApp, resolve, reject) => {
       jenkinsApp.job_info(encodeURI(query.jobname), (err: Error, data) => {
         if (err) {
           return reject(err)
@@ -50,8 +49,7 @@ export class JenkinsJobsController extends CreateJenkinsApp {
 
   @Get('/last/info')
   getLastCompletedBuildInfo (@QueryParams() query: JenkinsJobOptions) {
-    return new Promise((resolve, reject) => {
-      const jenkinsApp = this.createJenkinsApp(query)
+    return this.withJenkinsApp(query, (jenkinsApp, resolve, reject) => {
       jenkinsApp.last_completed_build_info(encodeURI(query.jobname), (err: Error, data) => {
         if (err) {
           return reject(err)
@@ -63,8 +61,7 @@ export class JenkinsJobsController extends CreateJenkinsApp {
 
   @Get('/last/console')
   getLastBuildConsole (@QueryParams() query: JenkinsJobOptions) {
-    return new Promise((resolve, reject) => {
-      const jenkinsApp = this.createJenkinsApp(query)
+    return this.withJenkinsApp(query, (jenkinsApp, resolve, reject) => {
       const jobname = encodeURI(query.jobname)
       jenkinsApp.last_completed_build_info(jobname, (err: Error, info) => {
         if (err) {

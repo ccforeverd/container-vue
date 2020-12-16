@@ -8,7 +8,7 @@ interface createdNuxtApp extends NuxtApp {
   koaMiddleware
 }
 
-export interface createNuxtAppOptions {
+interface createNuxtAppOptions {
   skipBuild?: boolean
   ignoreUrl?: RegExp | undefined
 }

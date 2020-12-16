@@ -8,7 +8,7 @@ export default function ({ $axios }: Context) {
   ]
 
   $axios.setBaseURL('/api')
-  $axios.defaults.timeout = 2000
+  $axios.defaults.timeout = 5000
 
   $axios.onRequest((config) => {
     if (matchFuncs.some(f => f(config.url || ''))) {
