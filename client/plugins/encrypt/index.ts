@@ -1,17 +1,12 @@
 import Vue from 'vue'
-import CryptoJS from 'crypto-js'
-import { generateSecretKey } from '../../../common/generateSecretKey'
+import { encrypt as useEnctypt } from '../../../common/crypto/encrypt'
+import { generateSecretKey } from '../../../common/crypto/generateSecretKey'
 
 const SECRET_KEY = generateSecretKey()
 
-export const encrypt = (message: string): string => CryptoJS.AES.encrypt(
-  message,
-  SECRET_KEY,
-  {
-    mode: CryptoJS.mode.ECB,
-    padding: CryptoJS.pad.Pkcs7
-  }
-).toString()
+export function encrypt (message) {
+  return useEnctypt(message, SECRET_KEY)
+}
 
 export type encryptFunc = (message: string) => string
 

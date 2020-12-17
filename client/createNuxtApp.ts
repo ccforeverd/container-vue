@@ -2,7 +2,7 @@ import { Nuxt } from '@nuxt/core'
 import { Builder } from '@nuxt/builder'
 import { NuxtApp } from '@nuxt/types/app'
 
-import nuxtConfig from '~/client/nuxt.config'
+import nuxtConfig from '~/nuxt.config'
 
 interface createdNuxtApp extends NuxtApp {
   koaMiddleware

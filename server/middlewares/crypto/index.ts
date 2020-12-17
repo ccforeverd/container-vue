@@ -10,7 +10,8 @@
 
 import CryptoJS from 'crypto-js'
 import { KoaMiddlewareInterface } from 'routing-controllers'
-import { generateSecretKey } from '@/common/generateSecretKey'
+import { decrypt } from '~~/common/crypto/decrypt'
+import { generateSecretKey } from '~~/common/crypto/generateSecretKey'
 
 const secretKey = generateSecretKey()
 
@@ -35,7 +36,7 @@ export function useDecrypt (options: DecryptOptions) {
           // 处理query的__data__字段
           case 'query':
             if (query.has('__data__')) {
-              const data = JSON.parse(this.parse(query.get('__data__') || ''))
+              const data = JSON.parse(decrypt(query.get('__data__') || '', secretKey))
               Object.entries(data).forEach(([key, value]) => query.set(key, String(value)))
               query.delete('__data__')
               context.request.url = [basePath, query.toString()].join('?')
@@ -49,7 +50,7 @@ export function useDecrypt (options: DecryptOptions) {
               const keys = options.queryKeys.filter(query.has)
               if (keys.length > 0) {
                 keys.forEach((key) => {
-                  const value = this.parse(query.get(key) || '')
+                  const value = decrypt(query.get(key) || '', secretKey)
                   query.set(key, value)
                 })
                 context.request.url = [basePath, query.toString()].join('?')
@@ -78,17 +79,6 @@ export function useDecrypt (options: DecryptOptions) {
       })
 
       return next()
-    }
-
-    parse (message: string): string {
-      return CryptoJS.AES.decrypt(
-        message,
-        secretKey,
-        {
-          mode: CryptoJS.mode.ECB,
-          padding: CryptoJS.pad.Pkcs7
-        }
-      ).toString(CryptoJS.enc.Utf8)
     }
   }
 }

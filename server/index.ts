@@ -7,7 +7,7 @@ import { getAvailablePort } from './utils/getAvaliablePort'
 
 import * as controllers from './controllers'
 
-import { createNuxtApp } from '~/client/createNuxtApp'
+import { createNuxtApp } from '~/createNuxtApp'
 
 useContainer(Container)
 

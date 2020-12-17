@@ -3,6 +3,7 @@ import { NuxtConfig } from '@nuxt/types'
 const config: NuxtConfig = {
   telemetry: false,
   srcDir: 'client/',
+
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     titleTemplate: '%s - edu-container-vue',
@@ -23,15 +24,15 @@ const config: NuxtConfig = {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    '~/plugins/axios',
-    '~/plugins/encrypt'
+    './plugins/axios',
+    './plugins/encrypt'
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: [
-    '~/components',
+    './components',
     {
-      path: '~/pages',
+      path: './pages',
       extensions: ['vue', 'js', 'ts', 'tsx']
     }
   ],
@@ -64,8 +65,8 @@ const config: NuxtConfig = {
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {
-    customVariables: ['~/assets/variables.scss'],
-    optionsPath: '~/vuetify.options.ts'
+    customVariables: ['./assets/variables.scss'],
+    optionsPath: './vuetify.options.ts'
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
